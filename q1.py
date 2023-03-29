@@ -11,7 +11,9 @@ FILE_PATH = "stats_full_stack_dev.csv"
 
 @st.cache_data
 def loadData(nrows):
-    data = pd.read_csv(FILE_PATH, nrows=nrows)
+    # data = pd.read_csv(FILE_PATH, nrows=nrows)
+    data = pd.read_csv(FILE_PATH, nrows=nrows) 
+    
     # lowercase = lambda x: str(x).lower()
     # data.rename(lowercase, axis='columns', inplace=True)
     # data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
@@ -30,6 +32,7 @@ if num_of_rows.isdigit():
     num_of_rows = int(num_of_rows)
     data_load_state = st.text('Loading data...')
     data = loadData(num_of_rows)
+    # data = data.dropna(subset=['time_stamp'])
     data_load_state.text("Done!")
     st.subheader('Data')
     st.write(data)
