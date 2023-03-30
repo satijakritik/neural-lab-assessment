@@ -1,6 +1,8 @@
+from datetime import time
 import streamlit as st
 import pandas as pd
 import numpy as np
+import plotly.express as px
 
 st.set_page_config(layout="wide")
 
@@ -11,13 +13,20 @@ FILE_PATH = "stats_full_stack_dev.csv"
 
 @st.cache_data
 def loadData(nrows):
-    # data = pd.read_csv(FILE_PATH, nrows=nrows)
-    data = pd.read_csv(FILE_PATH, nrows=nrows) 
-    
-    # lowercase = lambda x: str(x).lower()
-    # data.rename(lowercase, axis='columns', inplace=True)
-    # data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+    data = pd.read_csv(FILE_PATH, nrows = nrows) 
+    data = preprocess(data)
     return data
+
+def preprocess(df):
+    #Adding random datetimes for 'time_stamp' column for past 1 hr
+    last1 = pd.datetime.now().replace(microsecond=0) - pd.Timedelta('1H')
+
+    dates = pd.date_range(last1, periods = 30 * 60 * 60, freq='S')
+    
+    N = len(df)
+    df['time_stamp'] = np.random.choice(dates, size=N)
+    
+    return df
 
 def findUniqueValues(df):
     return df[FUNCTION_COLUMN].unique()
@@ -32,7 +41,6 @@ if num_of_rows.isdigit():
     num_of_rows = int(num_of_rows)
     data_load_state = st.text('Loading data...')
     data = loadData(num_of_rows)
-    # data = data.dropna(subset=['time_stamp'])
     data_load_state.text("Done!")
     st.subheader('Data')
     st.write(data)
@@ -54,5 +62,5 @@ if data is not None:
         
         for j, column in enumerate(columns):
             if i % num_of_columns == j:
-                column.subheader(function_name)
-                column.line_chart(temp)
+                fig = px.line(temp.sort_values("time_stamp"), x="time_stamp", y="Time", title=function_name)
+                column.plotly_chart(fig, use_container_width=True)
