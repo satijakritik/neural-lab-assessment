@@ -51,7 +51,7 @@ else:
 if data is not None:
     unique_vals = findUniqueValues(data)
     
-    num_of_columns = st.selectbox('Number of columns in grid layout', (1, 2, 3))
+    num_of_columns = st.selectbox('Number of columns in grid layout', (1, 2, 3), index = 1)
     num_of_columns = int(num_of_columns)
     
     columns = st.columns(num_of_columns)

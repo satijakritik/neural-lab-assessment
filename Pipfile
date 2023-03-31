@@ -7,6 +7,9 @@ name = "pypi"
 streamlit = "*"
 watchdog = "*"
 plotly = "*"
+fastapi = "*"
+openpyxl = "*"
+uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]
 
