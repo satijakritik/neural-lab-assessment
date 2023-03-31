@@ -8,28 +8,15 @@ st.set_page_config(layout="wide")
 
 st.title('Function Column Visualizer')
 
-FUNCTION_COLUMN = 'Function'
 FILE_PATH = "stats_full_stack_dev.csv"
 
 @st.cache_data
 def loadData(nrows):
     data = pd.read_csv(FILE_PATH, nrows = nrows) 
-    data = preprocess(data)
     return data
 
-def preprocess(df):
-    #Adding random datetimes for 'time_stamp' column for past 1 hr
-    last1 = pd.datetime.now().replace(microsecond=0) - pd.Timedelta('1H')
-
-    dates = pd.date_range(last1, periods = 30 * 60 * 60, freq='S')
-    
-    N = len(df)
-    df['time_stamp'] = np.random.choice(dates, size=N)
-    
-    return df
-
 def findUniqueValues(df):
-    return df[FUNCTION_COLUMN].unique()
+    return df['Function'].unique()
 
 st.text_input("Number of rows to visualize", key="num_of_rows")
 
@@ -57,7 +44,7 @@ if data is not None:
     columns = st.columns(num_of_columns)
     
     for i, function_name in enumerate(unique_vals):
-        temp = data[ data[FUNCTION_COLUMN] == function_name]
+        temp = data[ data['Function'] == function_name]
         temp = temp[['time_stamp','Time']]
         
         for j, column in enumerate(columns):
