@@ -1,0 +1,4 @@
+2023-03-31 17:16:55 - fast_api - INFO - Process API call received
+2023-03-31 17:16:55 - fast_api - INFO - Processing Completed! result = {'log_type': {'Burglary': 14, 'iCheck': 8, 'iLog': 9, 'Deception': 6, 'Robbery': 13}, 'classification_type': {'Pre-planned': 13, 'CCTV-Yes': 10, 'Solo': 9, 'CCTV-No': 11, 'Gang': 7}}
+2023-03-31 17:17:09 - fast_api - INFO - Process API call received
+2023-03-31 17:17:09 - fast_api - INFO - Processing Completed! result = {'log_type': {'Burglary': 14, 'iCheck': 8, 'iLog': 9, 'Deception': 6, 'Robbery': 13}, 'classification_type': {'Pre-planned': 13, 'CCTV-Yes': 10, 'Solo': 9, 'CCTV-No': 11, 'Gang': 7}}
